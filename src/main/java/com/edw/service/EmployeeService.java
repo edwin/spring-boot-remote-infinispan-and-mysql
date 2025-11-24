@@ -35,12 +35,12 @@ public class EmployeeService {
         return employeeRepository.findById(id).orElse(null);
     }
 
-    @Cacheable(value = "query-cache", key = "#root.methodName + \"\" + #firstname + \"\" +  #lastname")
+    @Cacheable(value = "query-cache", key = "#root.methodName + '-' + #firstname + '-' +  #lastname")
     public List<Employee> searchEmployeeByFirstnameAndLastname(String firstname, String lastname) {
         return employeeRepository.findTop10ByFirstnameLikeAndLastnameLike(firstname + "%", lastname + "%");
     }
 
-    @Cacheable(value = "query-cache", key = "#root.methodName + \"\" +  #gender")
+    @Cacheable(value = "query-cache", key = "#root.methodName + '-' +  #gender")
     public List<Employee> searchEmployeeByGender(String gender) {
         return employeeRepository.findTop10ByGenderIgnoreCase(gender);
     }
